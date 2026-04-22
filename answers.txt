@@ -2,7 +2,7 @@ Name: Grace Nakiyemba
 Student ID: #####
 Date: 21/04/2026
 
-###
+### Task 1
 # this is the setup.py
 import sqlite3
 conn = sqlite3.connect('nyondo_stock.db')
@@ -56,3 +56,96 @@ price REAL NOT NULL
 (3, 'Paint 5L', 'Exterior wall paint white 5L', 60000.0)
 (4, 'Nails 1kg', 'Common wire nails 1kg pack', 12000.0)
 (5, 'Timber 2x4', 'Pine timber plank 2x4 per metre', 25000.0)
+
+
+###Task 2
+#This is the queries.py
+import sqlite3
+
+conn = sqlite3.connect('nyondo_stock.db')
+cursor = conn.cursor()
+#This is the Query A
+print("query A")
+rows = cursor.execute("SELECT *from products").fetchall()
+for row in rows:
+    print(row)
+print()
+
+#This is the Query B
+print("query B")
+rows = cursor.execute("SELECT name, price from products").fetchall()
+for row in rows:
+    print(row)
+print()
+
+#This is the Query C
+print("query C")
+rows = cursor.execute("SELECT *from products where id = 3").fetchall()
+for row in rows:
+    print(row)
+print()
+
+#This is the Query D
+print("query D")
+rows = cursor.execute("SELECT *from products where name like '% sheet %'").fetchall()
+for row in rows:
+    print(row)
+print()
+
+#This is the Query E
+print("query E")
+rows = cursor.execute("SELECT *from products order by price desc").fetchall()
+for row in rows:
+    print(row)
+print()
+
+#This is the Query F
+print("query F")
+rows = cursor.execute("SELECT *from products order by price desc limit 2").fetchall()
+for row in rows:
+    print(row)
+print()
+
+#This is the Query G
+print("query G")
+cursor.execute("update products set price = 38000 where id = 1")
+conn.commit
+rows = cursor.execute("SELECT *from products where id = 1").fetchall()
+for row in rows:
+    print(row)
+print()
+
+###Outputs(Query)
+query A
+(1, 'Cement (bag)', 'Portland cement 50kg bag', 35000.0)
+(2, 'Iron Sheet 3m', 'Gauge 30 roofing sheet 3m long', 110000.0)
+(3, 'Paint 5L', 'Exterior wall paint white 5L', 60000.0)
+(4, 'Nails 1kg', 'Common wire nails 1kg pack', 12000.0)
+(5, 'Timber 2x4', 'Pine timber plank 2x4 per metre', 25000.0)
+
+query B
+('Cement (bag)', 35000.0)
+('Iron Sheet 3m', 110000.0)
+('Paint 5L', 60000.0)
+('Nails 1kg', 12000.0)
+('Timber 2x4', 25000.0)
+
+query C
+(3, 'Paint 5L', 'Exterior wall paint white 5L', 60000.0)
+
+query D
+(2, 'Iron Sheet 3m', 'Gauge 30 roofing sheet 3m long', 110000.0)
+
+query E
+(2, 'Iron Sheet 3m', 'Gauge 30 roofing sheet 3m long', 110000.0)
+(3, 'Paint 5L', 'Exterior wall paint white 5L', 60000.0)
+(1, 'Cement (bag)', 'Portland cement 50kg bag', 35000.0)
+(5, 'Timber 2x4', 'Pine timber plank 2x4 per metre', 25000.0)
+(4, 'Nails 1kg', 'Common wire nails 1kg pack', 12000.0)
+
+query F
+(2, 'Iron Sheet 3m', 'Gauge 30 roofing sheet 3m long', 110000.0)
+(3, 'Paint 5L', 'Exterior wall paint white 5L', 60000.0)
+
+query G
+(1, 'Cement (bag)', 'Portland cement 50kg bag', 38000.0)
